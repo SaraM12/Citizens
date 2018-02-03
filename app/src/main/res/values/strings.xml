@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Citizens</string>
+    <string name="insertUser_Button">Insertar Nuevo Usuario</string>
+    <string name="listUsers_Button">Listar Usuarios</string>
+    <string name="listCountry_Spinner">Seleccione Nacionalidad: </string>
+    <string name="listGender_EditText">Género</string>
+    <string name="listGenderF">Femenino</string>
+    <string name="listGenderM">Masculino</string>
+    <string name="numberUsers_EditText">Número de usuarios</string>
+    <string name="insert_Button">Insertar Usuarios</string>
+    <string name="date">Insertar Fecha</string>
+    <string name="buttonInfo">Fecha</string>
+
+</resources>
