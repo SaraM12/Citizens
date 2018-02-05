@@ -10,5 +10,6 @@
     <string name="insert_Button">Insertar Usuarios</string>
     <string name="date">Insertar Fecha</string>
     <string name="buttonInfo">Fecha</string>
+    <string name="spinnerPrompt">Gender</string>
 
 </resources>

@@ -1,7 +1,9 @@
 package com.example.sara.citizens;
 
 import android.app.DatePickerDialog;
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,8 +32,7 @@ import java.util.Locale;
 
 import static com.example.sara.citizens.R.id.dateShow;
 
-
-public class CreateUsers extends AppCompatActivity {
+public class CreateUsers extends AppCompatActivity{
 
     private Intent intent;
     private Button sendInfoButton;
@@ -42,6 +43,12 @@ public class CreateUsers extends AppCompatActivity {
 
     final String API_URL="https://randomuser.me/api/";
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+// Since we didn't alter the table, there's nothing else to do here.
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,7 @@ public class CreateUsers extends AppCompatActivity {
             }
         }
         Collections.sort(countries, String.CASE_INSENSITIVE_ORDER);*/
+
         //TODO AÑADIR INDICATIVOS DE CUAL ES EL PAÍS
 
         countries.add("AU");
@@ -92,6 +100,8 @@ public class CreateUsers extends AppCompatActivity {
         gender.add("Female");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
         genderSpinner.setAdapter(adapter1);
+
+
 
         final Button pickDate = (Button) findViewById(R.id.pick_date);
         final TextView textView = (TextView) findViewById(dateShow);
@@ -167,7 +177,7 @@ public class CreateUsers extends AppCompatActivity {
                 String aux[] = registeredAux.split("-");
                 final String registered = aux[2] + "-" + aux[1] + "-" + aux[0];
 
-
+                //TODO DA FALLO CUANDO NO SE INTRODUCE FECHA, HAY QUE ARREGLAR!!!!
 
                 /*
                 Toast.makeText(getApplicationContext(),message1, Toast.LENGTH_LONG).show();
@@ -176,14 +186,14 @@ public class CreateUsers extends AppCompatActivity {
                 */
 
 
-
-
-
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + countryValue.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
+
+                            Log.d("URL", url.toString());
+
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                             try {
                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -197,7 +207,12 @@ public class CreateUsers extends AppCompatActivity {
                                 Log.d("INFO", stringBuilder.toString());
 
                                 //ArrayList<User> userList = new ArrayList<User>();
-                                AppDataBase mDb = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
+
+                                AppDataBase mDb;
+                                mDb = Room.databaseBuilder(context, AppDataBase.class, "Sample.db")
+                                        .addMigrations(MIGRATION_1_2)
+                                        .build();
+                                //AppDataBase mDb = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
                                 UserDAO mUserDao = mDb.userDao();
                                 //List<User> userListAux = new ArrayList<User>();
 
@@ -239,6 +254,7 @@ public class CreateUsers extends AppCompatActivity {
                                     //userListAux = mUserDao.getAll();
 
 
+
                                 }
 
                                 /*for(int i=0; i<userList.size(); i++){
@@ -247,11 +263,14 @@ public class CreateUsers extends AppCompatActivity {
                                     Log.d("INFOBASE", user.toString());
 
                                 }*/
+                                //mDb.close();
 
                             }
 
                             finally{
                                 urlConnection.disconnect();
+
+
                             }
                         }
                         catch(Exception e) {
@@ -260,6 +279,18 @@ public class CreateUsers extends AppCompatActivity {
                         }
                     }
                 });
+
+
+                //AppDataBase mDb = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
+                //UserDAO mUserDao = mDb.userDao();
+
+                /*List<User> userListAux = mUserDao.getAll();
+                int i = 0;
+                for(i=0; i<userListAux.size(); i++){
+
+                    User userAux= userListAux.get(i);
+                    Log.d("USUARIO", userAux.toString());
+                }*/
 
                 startActivity(intent);
 
