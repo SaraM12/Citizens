@@ -95,6 +95,7 @@ public class CreateUsers extends AppCompatActivity{
         citizenship.setAdapter(adapter);
 
         genderSpinner = (Spinner) findViewById(R.id.genderspinner);
+        genderSpinner.setPrompt("Hola");
         ArrayList<String> gender = new ArrayList<String>();
         gender.add("Male");
         gender.add("Female");
