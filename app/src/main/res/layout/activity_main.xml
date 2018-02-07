@@ -4,21 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.sara.citizens.MainActivity">
 
-    <Button
-        android:id="@+id/insertUserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:text="@string/insertUser_Button"/>
+    <RelativeLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/insertUserButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:text="@string/insertUser_Button" />
+
+    </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/listUsersButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/listUsers_Button" />
+    <RelativeLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/listUsersButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:text="@string/listUsers_Button" />
+
+    </RelativeLayout>
+
+
 
 
 </LinearLayout>

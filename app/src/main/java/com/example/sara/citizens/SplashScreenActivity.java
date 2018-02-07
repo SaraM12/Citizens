@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,9 +18,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        // Hide title bar
-        //
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_splash_screen);
 
@@ -45,6 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.schedule(task, SPLASH_SCREEN_DELAY);
     }
+
 
 }
 

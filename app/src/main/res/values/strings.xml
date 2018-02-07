@@ -10,6 +10,13 @@
     <string name="insert_Button">Insertar Usuarios</string>
     <string name="date">Insertar Fecha</string>
     <string name="buttonInfo">Fecha</string>
-    <string name="spinnerPrompt">Gender</string>
+    <string name="spinnerPromptGenero">Género</string>
+    <string name="spinnerPromptNacionalidad">Nacionalidad</string>
+    <string name="ToastInfo">Sólo se han podido insertar </string>
+    <string name="ToastInfo2"> debido a la fecha de registro </string>
+
+
+
+
 
 </resources>

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -73,29 +75,28 @@ public class CreateUsers extends AppCompatActivity{
 
         //TODO AÑADIR INDICATIVOS DE CUAL ES EL PAÍS
 
-        countries.add("AU");
-        countries.add("BR");
-        countries.add("CA");
-        countries.add("CH");
-        countries.add("DE");
-        countries.add("DK");
-        countries.add("ES");
-        countries.add("FI");
-        countries.add("FR");
-        countries.add("GB");
-        countries.add("IE");
-        countries.add("IR");
-        countries.add("NL");
-        countries.add("NZ");
-        countries.add("TR");
-        countries.add("US");
+        countries.add("Australia (AU)");
+        countries.add("Brasil (BR)");
+        countries.add("Canadá (CA)");
+        countries.add("Suiza (CH)");
+        countries.add("Alemania (DE)");
+        countries.add("Dinamarca (DK)");
+        countries.add("España (ES)");
+        countries.add("Finlandia (FI)");
+        countries.add("Francia (FR)");
+        countries.add("Grna Bretaña (GB)");
+        countries.add("Irlanda (IE)");
+        countries.add("Irán (IR)");
+        countries.add("Paises Bajos (NL)");
+        countries.add("Nueva Zelanda (NZ)");
+        countries.add("Turquía (TR)");
+        countries.add("Estado Unidos (US)");
 
         citizenship = (Spinner) findViewById(R.id.countrySpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countries);
         citizenship.setAdapter(adapter);
 
         genderSpinner = (Spinner) findViewById(R.id.genderspinner);
-        genderSpinner.setPrompt("Hola");
         ArrayList<String> gender = new ArrayList<String>();
         gender.add("Male");
         gender.add("Female");
@@ -132,7 +133,7 @@ public class CreateUsers extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 final Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -171,31 +172,58 @@ public class CreateUsers extends AppCompatActivity{
             public void onClick(View v) {
 
                 final EditText num = (EditText) findViewById(R.id.numUsersEditText);
-                final String numUsersText = num.getText().toString();
+                //final String numUsersText = num.getText().toString();
+                final String numUsersText = "0";
                 final String countryValue = citizenship.getSelectedItem().toString();
+                String countryAux[] = countryValue.split("\\(");
+                String countryAux2[] = countryAux[1].split("\\)");
+                final String nat = countryAux2[0];
+
+                Log.i("Country", "Num " + nat);
+
                 final String genderValue = genderSpinner.getSelectedItem().toString();
                 final String registeredAux = textView.getText().toString();
-                String aux[] = registeredAux.split("-");
-                final String registered = aux[2] + "-" + aux[1] + "-" + aux[0];
+                String aux2[] = new String[3];
+                String rAux = null;
+
+                Log.i("Hola", "Num " +numUsersText);
+
+
+                if(registeredAux.equals("")){
+
+                    rAux = "0001-01-01";
+                    aux2[2] = "0001";
+                    aux2[1] = "01";
+                    aux2[0] = "01";
+
+
+                } else {
+
+                    Log.d("Hola","Hola");
+                    aux2 = registeredAux.split("-");
+                    rAux = aux2[2] + "-" + aux2[1] + "-" + aux2[0];
+
+                }
+
+                final String aux[] = aux2;
+                final String registered = rAux;
+
 
                 //TODO DA FALLO CUANDO NO SE INTRODUCE FECHA, HAY QUE ARREGLAR!!!!
 
-                /*
-                Toast.makeText(getApplicationContext(),message1, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(),countryValue, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(),genderValue, Toast.LENGTH_LONG).show();
-                */
+                final int[] contador = {0};
 
 
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + countryValue.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
+                            URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + nat.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
 
                             Log.d("URL", url.toString());
 
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
                             try {
                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                                 StringBuilder stringBuilder = new StringBuilder();
@@ -243,33 +271,55 @@ public class CreateUsers extends AppCompatActivity{
                                     JSONObject pictureObject = c.getJSONObject("picture");
                                     String picture = pictureObject.getString("large");
 
+                                    String a[] = fecha.split(" ");
+                                    String b[] = a[0].split("-");
 
-                                    User auxUser = new User(gender,name,location,username,password,fecha,picture);
+                                    boolean insert = false;
 
-                                    //userList.add(auxUser);
-                                    Log.i("INFO",auxUser.toString());
+                                    if(Integer.parseInt(aux[2]) < Integer.parseInt(b[0])){
+                                        insert = true;
+                                    } else if(Integer.parseInt(aux[2]) == Integer.parseInt(b[0])){
 
+                                        if(Integer.parseInt(aux[1]) < Integer.parseInt(b[1])){
 
-                                    mUserDao.insertAll(auxUser);
+                                            insert = true;
 
-                                    //userListAux = mUserDao.getAll();
+                                        } else if(Integer.parseInt(aux[1]) == Integer.parseInt(b[1])){
+                                            if(Integer.parseInt(aux[0]) <= Integer.parseInt(b[2])){
+                                                insert = true;
+                                            }
+                                        }
+                                    }
+                                    if(insert){
+                                        Log.i("Hola", "true");
 
+                                        User auxUser = new User(gender,name,location,username,password,fecha,picture);
 
+                                        mUserDao.insertAll(auxUser);
 
+                                        contador[0]++;
+
+                                    } else{
+                                        Log.i("Hola", "false");
+                                    }
                                 }
-
-                                /*for(int i=0; i<userList.size(); i++){
-
-                                    User user = userListAux.get(i);
-                                    Log.d("INFOBASE", user.toString());
-
-                                }*/
-                                //mDb.close();
 
                             }
 
                             finally{
+
                                 urlConnection.disconnect();
+
+                                Handler handler =  new Handler(context.getMainLooper());
+                                handler.post( new Runnable(){
+                                    public void run(){
+                                        Log.d("Contador", Integer.toString(contador[0]));
+
+                                        String string1 = getString(R.string.ToastInfo);
+                                        String string2 = getString(R.string.ToastInfo2);
+                                        Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
 
                             }
@@ -281,18 +331,6 @@ public class CreateUsers extends AppCompatActivity{
                     }
                 });
 
-
-                //AppDataBase mDb = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
-                //UserDAO mUserDao = mDb.userDao();
-
-                /*List<User> userListAux = mUserDao.getAll();
-                int i = 0;
-                for(i=0; i<userListAux.size(); i++){
-
-                    User userAux= userListAux.get(i);
-                    Log.d("USUARIO", userAux.toString());
-                }*/
-
                 startActivity(intent);
 
             }
@@ -300,7 +338,6 @@ public class CreateUsers extends AppCompatActivity{
 
 
     }
-
 
 
 
