@@ -21,7 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.activity_splash_screen);
+        //setContentView(R.layout.activity_splash_screen);
 
 
         TimerTask task = new TimerTask() {

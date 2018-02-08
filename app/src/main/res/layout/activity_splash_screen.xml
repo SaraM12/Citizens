@@ -15,4 +15,6 @@
         android:layout_marginTop="119dp"
         android:src="@drawable/logo" />
 
+    <!-- TODO ESTO SE PUEDE ELIMINAR-->
+
 </RelativeLayout>
