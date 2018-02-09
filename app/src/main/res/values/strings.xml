@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Citizens</string>
+    <string name="app_name">CITIZENS</string>
     <string name="insertUser_Button">Insertar Nuevo Usuario</string>
     <string name="listUsers_Button">Listar Usuarios</string>
     <string name="listCountry_Spinner">Seleccione Nacionalidad: </string>

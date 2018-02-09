@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.sara.citizens.ListUsers">
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/elemImage"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        />
+
+    <!--<ImageView
+
+        android:id="@+id/elemImage"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_margin="10dp" /> -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,26 +29,30 @@
         <TextView
             android:id="@+id/elemName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/elemGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/elemRegistered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="55dp"
+            android:textColor="@color/black" />
 
         <ImageButton
             android:id="@+id/elemLocation"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/elemName"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/map" />
 

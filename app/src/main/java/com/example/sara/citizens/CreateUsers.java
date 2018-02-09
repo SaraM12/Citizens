@@ -254,10 +254,17 @@ public class CreateUsers extends AppCompatActivity{
                                     JSONObject c = results.getJSONObject(i);
 
                                     String gender = c.getString("gender");
+                                    gender = gender.substring(0, 1).toUpperCase() + gender.substring(1);
 
                                     JSONObject nameObject = c.getJSONObject("name");
-                                    String name = nameObject.getString("title") + " " + nameObject.getString("first") + " " + nameObject.getString("last");
-                                    //String output = input.substring(0, 1).toUpperCase() + input.substring(1);
+                                    String title = nameObject.getString("title");
+                                    title = title.substring(0, 1).toUpperCase() + title.substring(1);
+                                    String first = nameObject.getString("first");
+                                    first = first.substring(0, 1).toUpperCase() + first.substring(1);
+                                    String last = nameObject.getString("last");
+                                    last = last.substring(0, 1).toUpperCase() + last.substring(1);
+                                    String name = title + ". " + first + " " + last;
+
 
                                     JSONObject locationObject = c.getJSONObject("location");
                                     String location = locationObject.getString("street") + ", " + locationObject.getString("city") + ", " + locationObject.getString("state");
@@ -291,7 +298,6 @@ public class CreateUsers extends AppCompatActivity{
                                         }
                                     }
                                     if(insert){
-                                        Log.i("Hola", "true");
 
                                         User auxUser = new User(gender,name,location,username,password,fecha,picture);
 
@@ -300,7 +306,7 @@ public class CreateUsers extends AppCompatActivity{
                                         contador[0]++;
 
                                     } else{
-                                        Log.i("Hola", "false");
+                                        Log.e("Error", "No se pudo insertar usuario");
                                     }
                                 }
 

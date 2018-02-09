@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sara.citizens.MainActivity">
+    tools:context="com.example.sara.citizens.MainActivity"
+    android:layout_marginTop="10dp">
 
     <RelativeLayout
         android:layout_weight="0.5"
@@ -15,9 +16,16 @@
         <Button
             android:id="@+id/insertUserButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="230dp"
             android:layout_alignParentTop="true"
-            android:text="@string/insertUser_Button" />
+            android:text="@string/insertUser_Button"
+            android:drawableStart="@drawable/user"
+            android:background="@drawable/button"
+            android:paddingLeft="30dp"
+            android:textSize="24sp"/>
 
     </RelativeLayout>
 
@@ -26,12 +34,20 @@
         android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <Button
             android:id="@+id/listUsersButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="230dp"
+            android:text="@string/listUsers_Button"
+            android:drawableStart="@drawable/list"
+            android:background="@drawable/button"
+            android:paddingLeft="30dp"
+            android:textSize="24sp"/>
 
-            android:text="@string/listUsers_Button" />
 
     </RelativeLayout>
 

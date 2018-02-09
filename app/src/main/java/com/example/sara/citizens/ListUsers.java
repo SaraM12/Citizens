@@ -104,28 +104,6 @@ public class ListUsers extends AppCompatActivity {
 
         }
 
-
-
-        /*imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("HOLA","HOla");
-            }
-
-        });*/
-
-
-        /*imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"HAS PULSADO EL IMAGEBUTTON", Toast.LENGTH_LONG);
-                String uri = String.format(Locale.ENGLISH, "geo:0,0?q=%s”,location");
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri)); context.startActivity(intent);
-            }
-        });*/
-
-
-
     }
 
 }

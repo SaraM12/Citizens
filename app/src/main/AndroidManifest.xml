@@ -24,6 +24,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ListUsers" />
         <activity android:name=".CreateUsers"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
