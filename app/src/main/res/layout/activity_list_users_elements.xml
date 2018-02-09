@@ -14,13 +14,6 @@
         android:layout_margin="10dp"
         />
 
-    <!--<ImageView
-
-        android:id="@+id/elemImage"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_margin="10dp" /> -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="86dp"

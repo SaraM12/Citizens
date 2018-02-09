@@ -16,13 +16,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        //setContentView(R.layout.activity_splash_screen);
-
 
         TimerTask task = new TimerTask() {
             @Override

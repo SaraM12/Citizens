@@ -38,6 +38,7 @@ public class CreateUsers extends AppCompatActivity{
 
     private Intent intent;
     private Button sendInfoButton;
+    private Button backwardsButton;
     private Spinner citizenship;
     private Spinner genderSpinner;
     private int mYear,mMonth,mDay;
@@ -73,8 +74,9 @@ public class CreateUsers extends AppCompatActivity{
         }
         Collections.sort(countries, String.CASE_INSENSITIVE_ORDER);*/
 
-        //TODO AÑADIR INDICATIVOS DE CUAL ES EL PAÍS
+        //TODO HACERLO GENÉRICO
 
+        //countries.add("-- Ninguno --");
         countries.add("Australia (AU)");
         countries.add("Brasil (BR)");
         countries.add("Canadá (CA)");
@@ -98,10 +100,21 @@ public class CreateUsers extends AppCompatActivity{
 
         genderSpinner = (Spinner) findViewById(R.id.genderspinner);
         ArrayList<String> gender = new ArrayList<String>();
+        gender.add("-- Ninguno --");
         gender.add("Male");
         gender.add("Female");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
         genderSpinner.setAdapter(adapter1);
+
+
+        backwardsButton = findViewById(R.id.backwards_Button);
+        backwardsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -114,7 +127,6 @@ public class CreateUsers extends AppCompatActivity{
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -143,26 +155,24 @@ public class CreateUsers extends AppCompatActivity{
                 DatePickerDialog dpd;
                 dpd = new DatePickerDialog(CreateUsers.this,new DatePickerDialog.OnDateSetListener() {
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // Display Selected date in textbox
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // Display Selected date in textbox
 
-                                if (year < mYear)
-                                    view.updateDate(mYear,mMonth,mDay);
+                        if (year < mYear)
+                            view.updateDate(mYear,mMonth,mDay);
 
-                                if (monthOfYear < mMonth && year == mYear)
-                                    view.updateDate(mYear,mMonth,mDay);
+                        if (monthOfYear < mMonth && year == mYear)
+                            view.updateDate(mYear,mMonth,mDay);
 
-                                if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
-                                    view.updateDate(mYear,mMonth,mDay);
+                        if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
+                            view.updateDate(mYear,mMonth,mDay);
 
-                                textView.setText(dayOfMonth + "-"
-                                        + (monthOfYear + 1) + "-" + year);
+                        textView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
-                            }
-                        }, mYear, mMonth, mDay);
-                //dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                    }
+                }, mYear, mMonth, mDay);
                 dpd.show();
 
             }
@@ -172,21 +182,27 @@ public class CreateUsers extends AppCompatActivity{
             public void onClick(View v) {
 
                 final EditText num = (EditText) findViewById(R.id.numUsersEditText);
-                //final String numUsersText = num.getText().toString();
-                final String numUsersText = "0";
+                final String numUsersText = num.getText().toString();
                 final String countryValue = citizenship.getSelectedItem().toString();
+
+                //TODO
+                /*if(countryValue.compareTo("--Ninguno--") == 0){
+                    Random rand = new Random();
+                    int  n = rand.nextInt(16) + 1;
+                    switch (n){
+                        case 0: countryValue = "(AU)"
+                    }
+                }*/
                 String countryAux[] = countryValue.split("\\(");
                 String countryAux2[] = countryAux[1].split("\\)");
                 final String nat = countryAux2[0];
 
-                Log.i("Country", "Num " + nat);
 
+                //YA SALE RANDOM
                 final String genderValue = genderSpinner.getSelectedItem().toString();
                 final String registeredAux = textView.getText().toString();
                 String aux2[] = new String[3];
                 String rAux = null;
-
-                Log.i("Hola", "Num " +numUsersText);
 
 
                 if(registeredAux.equals("")){
@@ -199,7 +215,6 @@ public class CreateUsers extends AppCompatActivity{
 
                 } else {
 
-                    Log.d("Hola","Hola");
                     aux2 = registeredAux.split("-");
                     rAux = aux2[2] + "-" + aux2[1] + "-" + aux2[0];
 
@@ -208,9 +223,6 @@ public class CreateUsers extends AppCompatActivity{
                 final String aux[] = aux2;
                 final String registered = rAux;
 
-
-                //TODO DA FALLO CUANDO NO SE INTRODUCE FECHA, HAY QUE ARREGLAR!!!!
-
                 final int[] contador = {0};
 
 
@@ -218,9 +230,9 @@ public class CreateUsers extends AppCompatActivity{
                     @Override
                     public void run() {
                         try {
-                            URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + nat.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
 
-                            Log.d("URL", url.toString());
+                            //TODO ARREGLAR URL PARA NUEVO VALOR DE SPINNER
+                            URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + nat.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
 
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -235,15 +247,12 @@ public class CreateUsers extends AppCompatActivity{
 
                                 Log.d("INFO", stringBuilder.toString());
 
-                                //ArrayList<User> userList = new ArrayList<User>();
-
                                 AppDataBase mDb;
                                 mDb = Room.databaseBuilder(context, AppDataBase.class, "Sample.db")
                                         .addMigrations(MIGRATION_1_2)
                                         .build();
-                                //AppDataBase mDb = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
+
                                 UserDAO mUserDao = mDb.userDao();
-                                //List<User> userListAux = new ArrayList<User>();
 
                                 JSONObject jsonObj = new JSONObject(stringBuilder.toString());
 
@@ -303,6 +312,8 @@ public class CreateUsers extends AppCompatActivity{
 
                                         mUserDao.insertAll(auxUser);
 
+                                        Log.d("USER", auxUser.toString());
+
                                         contador[0]++;
 
                                     } else{
@@ -319,11 +330,28 @@ public class CreateUsers extends AppCompatActivity{
                                 Handler handler =  new Handler(context.getMainLooper());
                                 handler.post( new Runnable(){
                                     public void run(){
-                                        Log.d("Contador", Integer.toString(contador[0]));
 
-                                        String string1 = getString(R.string.ToastInfo);
-                                        String string2 = getString(R.string.ToastInfo2);
+                                        //TODO NO FUNCIONA LO COMENTADO, ROMPE
+                                        String string1;
+                                        String string2;
+
+                                        //Log.d("CONTADOR", ""+contador[0]);
+                                        //if(contador[0] < Integer.parseInt(numUsersText)){
+
+                                        string1 = getString(R.string.ToastInfo);
+                                        string2 = getString(R.string.ToastInfo2);
                                         Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+                                        //}
+                                        /*else {
+
+                                            string1 = getString(R.string.ToastInfo3);
+                                            string2 = getString(R.string.ToastInfo4);
+
+                                        }
+
+                                        Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+                                        */
+
                                     }
                                 });
 
@@ -345,6 +373,5 @@ public class CreateUsers extends AppCompatActivity{
 
     }
 
-
-
 }
+
