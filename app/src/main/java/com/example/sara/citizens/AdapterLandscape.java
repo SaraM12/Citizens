@@ -57,8 +57,8 @@ public class AdapterLandscape extends BaseAdapter {
         textView1.setText(listUsers.get(i).getName());
         textView2.setText(listUsers.get(i).getGender());
         textView3.setText(listUsers.get(i).getFecha());
-        textView4.setText(listUsers.get(i).getUsername());
-        textView5.setText(listUsers.get(i).getPassword());
+        textView4.setText("  "+listUsers.get(i).getUsername());
+        textView5.setText("  "+listUsers.get(i).getPassword());
         new Adapter.DownloadImageFromInternet((ImageView) view.findViewById(R.id.elemImage)).execute(listUsers.get(i).getPicture());
 
         return view;

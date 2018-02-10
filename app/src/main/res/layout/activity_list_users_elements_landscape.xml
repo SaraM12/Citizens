@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.sara.citizens.ListUsers">
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/elemImage"
         android:layout_width="85dp"
         android:layout_height="85dp"
@@ -14,20 +15,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="86dp"
-        android:layout_marginTop="10dp">
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/elemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/elemGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:textColor="@color/black" />
 
         <TextView
@@ -43,16 +44,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="100dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:drawableStart="@drawable/userid"
+            />
 
         <TextView
             android:id="@+id/elemPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="100dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
+            android:drawableStart="@drawable/password"
             android:textColor="@color/black" />
 
     </RelativeLayout>
