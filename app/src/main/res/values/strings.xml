@@ -15,9 +15,14 @@
     <string name="spinnerPromptNacionalidad">Nacionalidad</string>
     <string name="ToastInfo">Sólo se ha(n) podido insertar </string>
     <string name="ToastInfo2"> debido a la fecha de registro </string>
-    <string name="ToastInfo3"> Se han insertado  </string>
+    <string name="ToastInfo3"> Se ha(n) insertado  </string>
     <string name="ToastInfo4"> usuario(s) </string>
+    <string name="ToastInfo5"> No se ha insertado ningún usuario debido a la fecha de registro </string>
     <string name="EditTextInfo"> Introducir nº de usuarios a insertar </string>
+    <string name="EmptyListMessage"> No hay usuarios insertados </string>
+    <string name="deleteUser_Button">Eliminar</string>
+    <string name="channel_name">Notificación</string>
+    <string name="channel_description_edit">El usuario ha sido modificado correctamente</string>
 
 
 

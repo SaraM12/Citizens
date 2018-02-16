@@ -17,8 +17,10 @@ public class User {
     public String fecha;
     public String picture;
 
+    public User() {}
 
     public User(String gender, String name, String location, String username, String password, String fecha, String picture) {
+
         this.gender = gender;
         this.name = name;
         this.location = location;

@@ -9,4 +9,5 @@
     <color name="black">#000</color>
     <color name="white">#ffffff</color>
     <color name="grey">#eeeeee</color>
+    <color name="greyText">#898989</color>
 </resources>

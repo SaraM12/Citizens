@@ -10,8 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class ListUsers extends AppCompatActivity {
     private ArrayList<User> usersList;
     private Context context;
     private ImageButton imageButton;
+    private TextView textView;
 
 
 
@@ -38,6 +41,7 @@ public class ListUsers extends AppCompatActivity {
 
 
         imageButton = (ImageButton) findViewById(R.id.elemLocation);
+        textView = findViewById(R.id.userListInfo);
         this.context=this;
 
 
@@ -62,6 +66,8 @@ public class ListUsers extends AppCompatActivity {
 
         usersList = new ArrayList<User>();
 
+        final boolean[] auxBool = {false};
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -73,10 +79,32 @@ public class ListUsers extends AppCompatActivity {
                             .build();
                     UserDAO mUserDao = mDb.userDao();
 
-                    //LA LISTA ESTÁ VACÍA
-                    List<User> listAux= mUserDao.getAll();
+                    List<User> listAux = mUserDao.getAll();
+
+                    if(listAux.isEmpty()){
+                        Log.d("VACIA", " "+listAux.isEmpty());
+
+                        textView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("VACIA", " Vacia");
+
+                                textView.setVisibility(View.VISIBLE);
+                            }
+                        });
+
+
+                    }else{
+                        textView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setVisibility(View.GONE);
+                            }
+                        });
+
+                    }
+
                     User userAux;
-                    String aux = Boolean.toString(listAux.isEmpty()) ;
 
                     int i = 0;
                     for(i=0; i<listAux.size(); i++){
@@ -92,7 +120,6 @@ public class ListUsers extends AppCompatActivity {
                 }
             }
         });
-
 
         if (value == Configuration.ORIENTATION_PORTRAIT) {
             Adapter myAdapter = new Adapter(getApplicationContext(),usersList);

@@ -56,6 +56,24 @@ public class Adapter extends BaseAdapter {
         TextView textView3 = view.findViewById(R.id.elemRegistered);
         ImageButton imageButton = view.findViewById(R.id.elemLocation);
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context, ShowInfoActivity.class);
+                intent.putExtra("Posicion", i);
+                intent.putExtra("UserImage", listUsers.get(i).getPicture());
+                intent.putExtra("UserName", listUsers.get(i).getName());
+                intent.putExtra("UserGender", listUsers.get(i).getGender());
+                intent.putExtra("UserRegisterDate", listUsers.get(i).getFecha());
+                intent.putExtra("UserLocation", listUsers.get(i).getLocation());
+                intent.putExtra("UserId", listUsers.get(i).getUsername());
+                intent.putExtra("UserPassword", listUsers.get(i).getPassword());
+                context.startActivity(intent);
+            }
+        });
+
+
+
         textView1.setText(listUsers.get(i).getName());
         textView2.setText(listUsers.get(i).getGender());
         textView3.setText(listUsers.get(i).getFecha());
@@ -70,15 +88,10 @@ public class Adapter extends BaseAdapter {
                 Log.d("LOCATION", location);
                 Uri gmmIntentUri = Uri.parse(uri);
 
-
-
-                // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 
-                // Make the Intent explicit by setting the Google Maps package
                 mapIntent.setPackage("com.google.android.apps.maps");
 
-                // Attempt to start an activity that can handle the Intent
                 context.startActivity(mapIntent);
             }
 

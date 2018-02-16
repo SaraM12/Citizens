@@ -68,18 +68,8 @@ public class CreateUsers extends AppCompatActivity{
 
         Locale[] locale = Locale.getAvailableLocales();
         ArrayList<String> countries = new ArrayList<String>();
-        /*String country;
-        for (Locale loc : locale) {
-            country = loc.getDisplayCountry();
-            if (country.length() > 0 && !countries.contains(country)) {
-                countries.add(country);
-            }
-        }
-        Collections.sort(countries, String.CASE_INSENSITIVE_ORDER);*/
 
-        //TODO HACERLO GENÉRICO
-
-        //countries.add("-- Ninguno --");
+        countries.add("-- Cualquiera --");
         countries.add("Australia (AU)");
         countries.add("Brasil (BR)");
         countries.add("Canadá (CA)");
@@ -89,7 +79,7 @@ public class CreateUsers extends AppCompatActivity{
         countries.add("España (ES)");
         countries.add("Finlandia (FI)");
         countries.add("Francia (FR)");
-        countries.add("Grna Bretaña (GB)");
+        countries.add("Gran Bretaña (GB)");
         countries.add("Irlanda (IE)");
         countries.add("Irán (IR)");
         countries.add("Paises Bajos (NL)");
@@ -103,7 +93,7 @@ public class CreateUsers extends AppCompatActivity{
 
         genderSpinner = (Spinner) findViewById(R.id.genderspinner);
         ArrayList<String> gender = new ArrayList<String>();
-        gender.add("-- Ninguno --");
+        gender.add("-- Cualquiera --");
         gender.add("Male");
         gender.add("Female");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
@@ -114,7 +104,6 @@ public class CreateUsers extends AppCompatActivity{
         backwardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(intent);
             }
         });
@@ -188,20 +177,17 @@ public class CreateUsers extends AppCompatActivity{
                 final String numUsersText = num.getText().toString();
                 final String countryValue = citizenship.getSelectedItem().toString();
 
-                //TODO
-                /*if(countryValue.compareTo("--Ninguno--") == 0){
-                    Random rand = new Random();
-                    int  n = rand.nextInt(16) + 1;
-                    switch (n){
-                        case 0: countryValue = "(AU)"
-                    }
-                }*/
-                String countryAux[] = countryValue.split("\\(");
-                String countryAux2[] = countryAux[1].split("\\)");
-                final String nat = countryAux2[0];
+                String paisAux;
+                if(countryValue.compareTo("-- Cualquiera --") == 0){
+                    paisAux ="AU";
+                }else {
+                    String countryAux[] = countryValue.split("\\(");
+                    String countryAux2[] = countryAux[1].split("\\)");
+                    paisAux = countryAux2[0];
+                }
 
+                final String nat = paisAux;
 
-                //YA SALE RANDOM
                 final String genderValue = genderSpinner.getSelectedItem().toString();
                 final String registeredAux = textView.getText().toString();
                 String aux2[] = new String[3];
@@ -234,7 +220,6 @@ public class CreateUsers extends AppCompatActivity{
                     public void run() {
                         try {
 
-                            //TODO ARREGLAR URL PARA NUEVO VALOR DE SPINNER
                             URL url = new URL(API_URL + "?inc=name,registered,gender,location,picture,login&nat=" + nat.toLowerCase() + "&gender=" + genderValue.toLowerCase() + "&results=" + numUsersText + "&registered="+registered);
 
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -334,30 +319,39 @@ public class CreateUsers extends AppCompatActivity{
                                 handler.post( new Runnable(){
                                     public void run(){
 
-                                        //TODO NO FUNCIONA LO COMENTADO, ROMPE
                                         String string1;
                                         String string2;
 
                                         //Log.d("CONTADOR", ""+contador[0]);
-                                        //if(contador[0] < Integer.parseInt(numUsersText)){
-
-                                        string1 = getString(R.string.ToastInfo);
-                                        string2 = getString(R.string.ToastInfo2);
-                                        Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
-                                        //}
-                                        /*else {
-
+                                        if(numUsersText.equals("")==true){
                                             string1 = getString(R.string.ToastInfo3);
                                             string2 = getString(R.string.ToastInfo4);
+                                            Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+                                        }else {
+
+                                            Log.d("NUMUSERSTEXT", "Jelou "+numUsersText);
+
+                                            if(contador[0] == 0 ){
+
+                                                Toast.makeText(context, getString(R.string.ToastInfo5), Toast.LENGTH_LONG).show();
+
+                                            } else if(contador[0] < Integer.parseInt(numUsersText)){
+
+                                                string1 = getString(R.string.ToastInfo);
+                                                string2 = getString(R.string.ToastInfo2);
+                                                Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+
+                                                string1 = getString(R.string.ToastInfo3);
+                                                string2 = getString(R.string.ToastInfo4);
+                                                Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
+
+                                            }
 
                                         }
-
-                                        Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
-                                        */
-
                                     }
                                 });
-
 
                             }
                         }

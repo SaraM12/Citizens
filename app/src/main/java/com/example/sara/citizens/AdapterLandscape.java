@@ -1,6 +1,7 @@
 package com.example.sara.citizens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -52,6 +53,23 @@ public class AdapterLandscape extends BaseAdapter {
         TextView textView3 = view.findViewById(R.id.elemRegistered);
         TextView textView4 = view.findViewById(R.id.elemUser);
         TextView textView5 = view.findViewById(R.id.elemPassword);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context, ShowInfoActivity.class);
+                intent.putExtra("Posicion", i);
+                intent.putExtra("UserImage", listUsers.get(i).getPicture());
+                intent.putExtra("UserName", listUsers.get(i).getName());
+                intent.putExtra("UserGender", listUsers.get(i).getGender());
+                intent.putExtra("UserRegisterDate", listUsers.get(i).getFecha());
+                intent.putExtra("UserLocation", listUsers.get(i).getLocation());
+                intent.putExtra("UserId", listUsers.get(i).getUsername());
+                intent.putExtra("UserPassword", listUsers.get(i).getPassword());
+                context.startActivity(intent);
+            }
+        });
+
 
 
         textView1.setText(listUsers.get(i).getName());

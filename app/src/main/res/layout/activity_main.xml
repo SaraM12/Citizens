@@ -8,15 +8,6 @@
     tools:context="com.example.sara.citizens.MainActivity"
     android:layout_marginTop="10dp">
 
-<!--  TODO POR SI QUEREMOS AÑADIR LA TOOLBAR
-    https://www.youtube.com/watch?v=QOADDUvGvD8
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"/> -->
-
-
     <RelativeLayout
         android:layout_weight="0.5"
         android:layout_width="match_parent"
