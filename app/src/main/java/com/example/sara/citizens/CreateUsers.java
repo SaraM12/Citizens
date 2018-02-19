@@ -122,11 +122,9 @@ public class CreateUsers extends AppCompatActivity{
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                // myCalendar.add(Calendar.DATE, 0);
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 textView.setText(sdf.format(myCalendar.getTime()));
-                Log.d("HOLA", sdf.format(myCalendar.getTime()));
 
             }
 
@@ -143,14 +141,12 @@ public class CreateUsers extends AppCompatActivity{
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                // Launch Date Picker Dialog
                 DatePickerDialog dpd;
                 dpd = new DatePickerDialog(CreateUsers.this,new DatePickerDialog.OnDateSetListener() {
 
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // Display Selected date in textbox
 
                         if (year < mYear)
                             view.updateDate(mYear,mMonth,mDay);
@@ -233,8 +229,6 @@ public class CreateUsers extends AppCompatActivity{
                                 }
                                 bufferedReader.close();
 
-                                Log.d("INFO", stringBuilder.toString());
-
                                 AppDataBase mDb;
                                 mDb = Room.databaseBuilder(context, AppDataBase.class, "Sample.db")
                                         .addMigrations(MIGRATION_1_2)
@@ -300,8 +294,6 @@ public class CreateUsers extends AppCompatActivity{
 
                                         mUserDao.insertAll(auxUser);
 
-                                        Log.d("USER", auxUser.toString());
-
                                         contador[0]++;
 
                                     } else{
@@ -328,8 +320,6 @@ public class CreateUsers extends AppCompatActivity{
                                             string2 = getString(R.string.ToastInfo4);
                                             Toast.makeText(context, string1 + " " +contador[0]+ " " +string2, Toast.LENGTH_LONG).show();
                                         }else {
-
-                                            Log.d("NUMUSERSTEXT", "Jelou "+numUsersText);
 
                                             if(contador[0] == 0 ){
 

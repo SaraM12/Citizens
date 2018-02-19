@@ -128,10 +128,6 @@ public class ShowInfoActivity extends AppCompatActivity {
                 });
             }
         });
-
-
-
-
     }
 
 

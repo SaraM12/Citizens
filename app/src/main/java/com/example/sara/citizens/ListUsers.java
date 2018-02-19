@@ -44,29 +44,13 @@ public class ListUsers extends AppCompatActivity {
         textView = findViewById(R.id.userListInfo);
         this.context=this;
 
-
-        String orientation;
         Activity activity = ListUsers.this;
         int value = activity.getResources().getConfiguration().orientation;
 
-        if (value == Configuration.ORIENTATION_PORTRAIT) {
 
-            orientation = "Portrait";
-            Log.d("Orientation", orientation);
-        }
-
-        if (value == Configuration.ORIENTATION_LANDSCAPE) {
-
-            orientation = "Landscape";
-            Log.d("Orientation", orientation);
-        }
-
-        //pb = (ProgressBar) findViewById(R.id.progressBar);
         lista = findViewById(R.id.listView);
 
         usersList = new ArrayList<User>();
-
-        final boolean[] auxBool = {false};
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -82,12 +66,10 @@ public class ListUsers extends AppCompatActivity {
                     List<User> listAux = mUserDao.getAll();
 
                     if(listAux.isEmpty()){
-                        Log.d("VACIA", " "+listAux.isEmpty());
 
                         textView.post(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("VACIA", " Vacia");
 
                                 textView.setVisibility(View.VISIBLE);
                             }
@@ -125,7 +107,6 @@ public class ListUsers extends AppCompatActivity {
             Adapter myAdapter = new Adapter(getApplicationContext(),usersList);
             lista.setAdapter(myAdapter);
         } else{
-
             AdapterLandscape myAdapter2 = new AdapterLandscape(getApplicationContext(),usersList);
             lista.setAdapter(myAdapter2);
 
@@ -134,4 +115,3 @@ public class ListUsers extends AppCompatActivity {
     }
 
 }
-

@@ -38,7 +38,7 @@ public class EditUserActivity extends AppCompatActivity {
     public String fecha;
     public String picture;
     private Context context;
-    //ArrayList<String> genderArray;
+
     String[] genderArray = {"Male", "Female"};
 
     private ImageButton saveButton;
@@ -97,16 +97,6 @@ public class EditUserActivity extends AppCompatActivity {
                     locationText.setHint(" "+ location);
                     passwordText.setHint(" "+ password);
 
-                    /*genderArray = new ArrayList<String>();
-                    if(gender.equals("Male")){
-                        genderArray.add("Male");
-                        genderArray.add("Female");
-                    } else {
-                        genderArray.add("Female");
-                        genderArray.add("Male");
-                    }*/
-
-                    //ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, genderArray);
                     genderText.setAdapter(new MyCustomAdapter(EditUserActivity.this, R.layout.row, genderArray));
 
                 } catch (Exception e) {
@@ -157,25 +147,6 @@ public class EditUserActivity extends AppCompatActivity {
 
                             mUserDao.insertAll(userObj[0]);
 
-
-                            /*Notification.Builder notificationBuilder = new Notification.Builder(context)
-                                    .setSmallIcon(R.drawable.logo)
-                                    .setContentTitle("HOla")
-                                    .setAutoCancel(true)
-                                    .setTicker("Hola2")
-                                    .setContentIntent(PendingIntent.getActivity(context,0,new Intent(),0));
-
-                            Notification notification = notificationBuilder.build();
-                            notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-                            NotificationManager notificationManager = (NotificationManager) context.getSystemService(EditUserActivity.NOTIFICATION_SERVICE);
-
-                            if(notificationManager!= null){
-
-                                notificationManager.notify(0,notification);
-
-                            }*/
-
                             Intent intent = new Intent(context, ListUsers.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -188,9 +159,6 @@ public class EditUserActivity extends AppCompatActivity {
                 });
             }
         });
-
-
-
 
     }
 
